@@ -18,7 +18,10 @@ const Index = () => {
 
   return (
     <SafeAreaView className="flex h-full justify-between items-center">
-      <TouchableOpacity className="w-full items-end p-5">
+      <TouchableOpacity
+        className="w-full items-end p-5"
+        onPress={() => router.replace("/(auth)/sign-up")}
+      >
         <Text className="text-black font-JakartaBold text-md">Skip</Text>
       </TouchableOpacity>
       <Swiper
