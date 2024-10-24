@@ -9,6 +9,7 @@ const CustomButton = ({
   bgVariant,
   textVariant,
   className,
+  onPress,
 }: ButtonProps) => {
   let getBgVariant = () => {
     switch (bgVariant) {
@@ -43,6 +44,7 @@ const CustomButton = ({
   };
   return (
     <TouchableOpacity
+      onPress={onPress}
       className={`${getBgVariant()}  p-3 rounded-full shadow-md shadow-neutral-400 ${className}`}
     >
       {IconLeft && <IconLeft />}

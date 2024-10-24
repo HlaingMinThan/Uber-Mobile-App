@@ -5,13 +5,16 @@ import {
   View,
   Image,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Swiper from "react-native-swiper";
 import { data } from "@/constants/index";
 import CustomButton from "@/components/CustomButton";
+import { router } from "expo-router";
 
 const Index = () => {
   const swiperRef = useRef<Swiper>(null);
+  let [activeIndex, setActiveIndex] = useState(0);
+  let isLastSlide = activeIndex === data.onboarding.length - 1;
 
   return (
     <SafeAreaView className="flex h-full justify-between items-center">
@@ -19,6 +22,7 @@ const Index = () => {
         <Text className="text-black font-JakartaBold text-md">Skip</Text>
       </TouchableOpacity>
       <Swiper
+        onIndexChanged={(index) => setActiveIndex(index)}
         ref={swiperRef}
         loop={false}
         dot={
@@ -48,7 +52,16 @@ const Index = () => {
         ))}
       </Swiper>
       <View className="w-full p-5">
-        <CustomButton title="Next"></CustomButton>
+        <CustomButton
+          title={isLastSlide ? "Get Started" : "Next"}
+          onPress={() => {
+            if (isLastSlide) {
+              router.replace("/(auth)/sign-up");
+            } else {
+              swiperRef.current?.scrollBy(1, true);
+            }
+          }}
+        />
       </View>
     </SafeAreaView>
   );
