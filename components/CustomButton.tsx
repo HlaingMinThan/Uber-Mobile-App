@@ -3,14 +3,15 @@ import React from "react";
 import { ButtonProps } from "@/types/type";
 
 const CustomButton = ({
+  classNames,
   IconLeft,
   IconRight,
   title,
   bgVariant,
   textVariant,
-  className,
   onPress,
 }: ButtonProps) => {
+  console.log(classNames, "className");
   let getBgVariant = () => {
     switch (bgVariant) {
       case "primary":
@@ -27,7 +28,6 @@ const CustomButton = ({
         return "bg-[#0286FF]";
     }
   };
-
   let getTextVariant = () => {
     switch (textVariant) {
       case "primary":
@@ -45,10 +45,12 @@ const CustomButton = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className={`${getBgVariant()}  p-3 rounded-full shadow-md shadow-neutral-400 ${className}`}
+      className={`${getBgVariant()} p-3 rounded-full shadow-md shadow-neutral-400 ${classNames} flex flex-row items-center justify-center`}
     >
       {IconLeft && <IconLeft />}
-      <Text className={`${getTextVariant()} text-center text-lg font-bold`}>
+      <Text
+        className={`${getTextVariant()} text-center text-lg font-bold ${IconLeft && "ml-3"} ${IconRight && "mr-3"}`}
+      >
         {title}
       </Text>
       {IconRight && <IconRight />}
