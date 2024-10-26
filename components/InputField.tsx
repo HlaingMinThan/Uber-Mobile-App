@@ -4,6 +4,7 @@ import { InputFieldProps } from "@/types/type";
 
 const InputField = ({
   label,
+  keyboardType,
   labelStyle,
   placeholder,
   containerStyle,
@@ -25,6 +26,7 @@ const InputField = ({
           <Image source={icon} className={`w-6 h-6 ml-4 ${iconStyle}`} />
         )}
         <TextInput
+          keyboardType={keyboardType}
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}

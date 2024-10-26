@@ -18,7 +18,7 @@ import { images } from "@/constants";
 
 const SignUp = () => {
   let [errors, setErrors] = useState<any>(null);
-  let [isOpen, setIsOpen] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
   let [isVerified, setIsVerified] = useState(false);
   let [form, setForm] = useState({
     name: "",
@@ -35,6 +35,7 @@ const SignUp = () => {
     try {
       let res = await axios.post("/api/users", form);
       let token = res.data.token; //may b store in secure store
+      setIsOpen(true);
       console.log(token);
     } catch (e: any) {
       if (e.response.status === 422) {
@@ -122,7 +123,11 @@ const SignUp = () => {
                   we've sent a verification code to {form.email}
                 </Text>
                 <View className="w-full">
-                  <InputField label="Code" placeholder="12345" />
+                  <InputField
+                    label="Code"
+                    placeholder="12345"
+                    keyboardType="numeric"
+                  />
                 </View>
                 <View className="w-full">
                   <CustomButton
