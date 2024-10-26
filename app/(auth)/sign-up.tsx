@@ -7,21 +7,29 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState } from "react";
-import { images } from "@/constants";
 import InputField from "@/components/InputField";
 import { icons } from "@/constants";
 import CustomButton from "@/components/CustomButton";
 import Oauth from "@/components/Oauth";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import axios from "@/helpers/axios";
+import Modal from "react-native-modal";
+import { images } from "@/constants";
 
 const SignUp = () => {
   let [errors, setErrors] = useState<any>(null);
+  let [isOpen, setIsOpen] = useState(true);
+  let [isVerified, setIsVerified] = useState(false);
   let [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
   });
+
+  let verifyEmail = () => {
+    setIsVerified(true);
+    //check verify email api and set user email to verified if otp true
+  };
 
   let signUpNow = async () => {
     try {
@@ -86,6 +94,46 @@ const SignUp = () => {
           </View>
 
           {/* verification modal */}
+          <Modal isVisible={isOpen} onBackdropPress={() => setIsOpen(false)}>
+            {isVerified ? (
+              <View className="bg-white flex justify-center items-center px-5 py-10 space-y-5 rounded-2xl">
+                <Image source={images.check} className="w-28 h-28" />
+                <Text className="text-3xl font-JakartaBold">Verified!</Text>
+                <Text className="text-lg text-gray-400 text-center">
+                  You have successfully verified your account
+                </Text>
+                <View className="w-full">
+                  <CustomButton
+                    title="Brownse Home"
+                    onPress={() => {
+                      setIsOpen(false);
+                      //navigate to home
+                      setTimeout(() => {
+                        router.push("/(tab)/home");
+                      }, 500);
+                    }}
+                  />
+                </View>
+              </View>
+            ) : (
+              <View className="bg-white flex justify-center items-start px-6 py-10 space-y-4 rounded-2xl">
+                <Text className="text-2xl font-JakartaBold">Verifications</Text>
+                <Text className="text-lg text-gray-500 text-center mb-4">
+                  we've sent a verification code to {form.email}
+                </Text>
+                <View className="w-full">
+                  <InputField label="Code" placeholder="12345" />
+                </View>
+                <View className="w-full">
+                  <CustomButton
+                    title="Verify Email"
+                    bgVariant="success"
+                    onPress={verifyEmail}
+                  />
+                </View>
+              </View>
+            )}
+          </Modal>
         </View>
       </ScrollView>
     </TouchableWithoutFeedback>
