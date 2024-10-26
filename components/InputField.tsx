@@ -9,7 +9,10 @@ const InputField = ({
   containerStyle,
   inputStyle,
   icon,
+  onChangeText,
+  value,
   iconStyle,
+  error,
   secureTextEntry = false,
 }: InputFieldProps) => {
   return (
@@ -22,12 +25,15 @@ const InputField = ({
           <Image source={icon} className={`w-6 h-6 ml-4 ${iconStyle}`} />
         )}
         <TextInput
+          value={value}
+          onChangeText={onChangeText}
           placeholder={placeholder}
           secureTextEntry={secureTextEntry}
           placeholderTextColor={"#A0AEC0"}
           className={` w-[90%] p-4 font-JakartaSemiBold text-[15px] ${inputStyle}`}
         />
       </View>
+      {error && <Text className="text-red-500 mt-2 ml-3">{error}</Text>}
     </View>
   );
 };
