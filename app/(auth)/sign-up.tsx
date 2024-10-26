@@ -25,18 +25,32 @@ const SignUp = () => {
     email: "",
     password: "",
   });
+  let [otp, setOtp] = useState("");
 
-  let verifyEmail = () => {
-    setIsVerified(true);
-    //check verify email api and set user email to verified if otp true
+  let verifyEmail = async () => {
+    try {
+      //create user if otp for that user is true
+      let res = await axios.post("/api/users", { ...form, otp });
+      let token = res.data.token; //may b store in secure store
+      if (token) {
+        setIsVerified(true);
+        console.log(token);
+      }
+    } catch (e: any) {
+      setErrors(e.response.data?.errors);
+    }
   };
 
   let signUpNow = async () => {
     try {
-      let res = await axios.post("/api/users", form);
-      let token = res.data.token; //may b store in secure store
-      setIsOpen(true);
-      console.log(token);
+      setErrors(null);
+      setOtp("");
+      setIsVerified(false);
+      //send otp to user
+      let res = await axios.post("/api/send-otp", form);
+      if (res.status === 200) {
+        setIsOpen(true);
+      }
     } catch (e: any) {
       if (e.response.status === 422) {
         setErrors(e.response.data?.errors);
@@ -124,9 +138,12 @@ const SignUp = () => {
                 </Text>
                 <View className="w-full">
                   <InputField
+                    value={otp}
+                    onChangeText={setOtp}
                     label="Code"
                     placeholder="12345"
                     keyboardType="numeric"
+                    error={errors?.otp}
                   />
                 </View>
                 <View className="w-full">
