@@ -36,14 +36,12 @@ export default function RootLayout() {
           name="index"
           options={{ headerTitle: "Home", headerShown: false }}
         />
-        <Stack.Screen
-          name="(auth)/sign-up"
-          options={{ headerTitle: "Sign up", headerShown: false }}
-        />
+        <Stack.Screen name="(auth)/sign-up" options={{ headerShown: false }} />
         <Stack.Screen
           name="(auth)/signin"
           options={{ headerTitle: "Sign in", headerShown: false }}
         />
+        <Stack.Screen name="(tab)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </AuthContextProvider>
