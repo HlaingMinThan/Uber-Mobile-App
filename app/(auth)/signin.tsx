@@ -4,20 +4,31 @@ import {
   Text,
   View,
   TouchableWithoutFeedback,
-  Alert,
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { images } from "@/constants";
 import InputField from "@/components/InputField";
 import { icons } from "@/constants";
 import CustomButton from "@/components/CustomButton";
 import Oauth from "@/components/Oauth";
 import { Link } from "expo-router";
+import { AuthContext } from "@/contexts/AuthContext";
 
 const SignIn = () => {
-  let SignInNow = () => {
-    Alert.alert("sign up");
+  let { login } = useContext(AuthContext);
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
+  let [errors, setErrors] = useState<any>(null);
+
+  let SignInNow = async () => {
+    try {
+      let res = await login(email, password);
+      console.log(res);
+    } catch (e: any) {
+      console.log(e.response.data);
+      setErrors(e.response.data.errors);
+    }
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -31,11 +42,17 @@ const SignIn = () => {
         <View className="h-full bg-white">
           <View className="mx-5 mt-6">
             <InputField
+              error={errors?.email}
+              value={email}
+              onChangeText={setEmail}
               label="Email"
               placeholder="Enter your email"
               icon={icons.email}
             />
             <InputField
+              error={errors?.password}
+              value={password}
+              onChangeText={setPassword}
               label="Password"
               placeholder="Enter your password"
               icon={icons.lock}

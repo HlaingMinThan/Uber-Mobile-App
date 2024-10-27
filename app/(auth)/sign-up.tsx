@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import InputField from "@/components/InputField";
 import { icons } from "@/constants";
 import CustomButton from "@/components/CustomButton";
@@ -15,11 +15,14 @@ import { Link, router } from "expo-router";
 import axios from "@/helpers/axios";
 import Modal from "react-native-modal";
 import { images } from "@/constants";
+import { AuthContext } from "@/contexts/AuthContext";
 
 const SignUp = () => {
   let [errors, setErrors] = useState<any>(null);
   let [isOpen, setIsOpen] = useState(false);
   let [isVerified, setIsVerified] = useState(false);
+  let { getUser } = useContext(AuthContext);
+
   let [form, setForm] = useState({
     name: "",
     email: "",
@@ -34,7 +37,7 @@ const SignUp = () => {
       let token = res.data.token; //may b store in secure store
       if (token) {
         setIsVerified(true);
-        console.log(token);
+        getUser(token);
       }
     } catch (e: any) {
       setErrors(e.response.data?.errors);

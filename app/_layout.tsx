@@ -3,6 +3,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import { AuthContextProvider } from "@/contexts/AuthContext";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -29,20 +30,22 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{ headerTitle: "Home", headerShown: false }}
-      />
-      <Stack.Screen
-        name="(auth)/sign-up"
-        options={{ headerTitle: "Sign up", headerShown: false }}
-      />
-      <Stack.Screen
-        name="(auth)/signin"
-        options={{ headerTitle: "Sign in", headerShown: false }}
-      />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <AuthContextProvider>
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{ headerTitle: "Home", headerShown: false }}
+        />
+        <Stack.Screen
+          name="(auth)/sign-up"
+          options={{ headerTitle: "Sign up", headerShown: false }}
+        />
+        <Stack.Screen
+          name="(auth)/signin"
+          options={{ headerTitle: "Sign in", headerShown: false }}
+        />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </AuthContextProvider>
   );
 }
