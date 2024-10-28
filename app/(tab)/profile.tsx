@@ -1,11 +1,13 @@
-import { Text, View } from "react-native";
-import React from "react";
+import { SafeAreaView, Text, View } from "react-native";
+import React, { useContext } from "react";
+import { AuthContext } from "@/contexts/AuthContext";
 
 const Profile = (props) => {
+  let { user } = useContext(AuthContext);
   return (
-    <View>
-      <Text>Profile</Text>
-    </View>
+    <SafeAreaView>
+      <Text>{user.name}</Text>
+    </SafeAreaView>
   );
 };
 

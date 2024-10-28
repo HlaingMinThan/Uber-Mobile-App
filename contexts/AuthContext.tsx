@@ -2,7 +2,15 @@ import { createContext, useEffect, useState } from "react";
 import { getItem, setItem } from "expo-secure-store";
 import axios from "@/helpers/axios";
 import { router } from "expo-router";
-const AuthContext = createContext({
+
+type AuthContextType = {
+  user: any; // `user` can be of any type
+  login: (email: string, password: string) => void;
+  logout: () => void;
+  getUser: (token: string) => void;
+};
+
+const AuthContext = createContext<AuthContextType>({
   user: null,
   login: (email: string, password: string) => {},
   logout: () => {},
