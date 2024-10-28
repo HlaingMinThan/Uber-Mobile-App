@@ -2,14 +2,26 @@ import { Image, Text, View } from "react-native";
 import React from "react";
 import { icons } from "@/constants";
 
-type Props = {};
-
-const RideCard = (props: Props) => {
+const RideCard = ({
+  ride: {
+    destination_latitude,
+    destination_longitude,
+    origin_latitude,
+    origin_longitude,
+  },
+}: {
+  ride: any;
+}) => {
   return (
     <View className="bg-white p-4 rounded-2xl mt-3">
       <View className="flex flex-row space-x-5 items-center">
-        <View className="w-20 h-20 bg-red-100  rounded-lg flex justify-center items-center">
-          {/* <Image source={icons.map} className="w-8 h-8" /> */}
+        <View className="w-20 h-20 rounded-lg flex justify-center items-center">
+          <Image
+            source={{
+              uri: `https://maps.geoapify.com/v1/staticmap?style=osm-bright&width=600&height=400&center=lonlat:${destination_longitude},${destination_latitude}&zoom=14&apiKey=${process.env.EXPO_PUBLIC_GEOAPIFY_API_KEY}`,
+            }}
+            className="w-full h-full rounded-lg"
+          />
         </View>
         <View className="space-y-2">
           <View className="flex items-center flex-row space-x-2">
