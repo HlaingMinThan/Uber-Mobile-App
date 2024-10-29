@@ -64,7 +64,7 @@ const _layout = (props: any) => {
           title: "Rides",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} source={icons.home} />
+            <TabIcon focused={focused} source={icons.list} />
           ),
         }}
       />
@@ -74,7 +74,7 @@ const _layout = (props: any) => {
           title: "Chat",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} source={icons.home} />
+            <TabIcon focused={focused} source={icons.chat} />
           ),
         }}
       />
@@ -84,7 +84,7 @@ const _layout = (props: any) => {
           title: "Profile",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} source={icons.home} />
+            <TabIcon focused={focused} source={icons.profile} />
           ),
         }}
       />
