@@ -7,6 +7,7 @@ import InputField from "@/components/InputField";
 import RideCard from "@/components/RideCard";
 import Map from "@/components/Map";
 import { useLocationStore } from "@/store";
+import GoogleSearchInput from "@/components/GoogleSearchInput";
 
 const Home = () => {
   let { setUserLocation, setDestinationLocation } = useLocationStore();
@@ -163,14 +164,7 @@ const Home = () => {
                   <Image source={icons.out} className="w-6 h-6" />
                 </View>
               </View>
-              <View className="mt-5">
-                <InputField
-                  placeholder="Where do you want to go ?"
-                  containerStyle="bg-white"
-                  icon={icons.search}
-                  inputStyle="text-[18px]"
-                />
-              </View>
+              <GoogleSearchInput icon={icons.search} />
             </View>
             <>
               <Text className="text-black font-JakartaSemiBold text-xl my-4">
