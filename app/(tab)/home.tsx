@@ -1,12 +1,45 @@
 import { FlatList, Image, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as Location from "expo-location";
 import { icons } from "@/constants";
 import InputField from "@/components/InputField";
 import RideCard from "@/components/RideCard";
 import Map from "@/components/Map";
+import { useLocationStore } from "@/store";
 
 const Home = () => {
+  let { setUserLocation, setDestinationLocation } = useLocationStore();
+  let [hasPermission, setHasPermission] = useState(false);
+
+  useEffect(() => {
+    let requestLocationPermission = async () => {
+      //request allow location
+      let { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status !== "granted") {
+        setHasPermission(false);
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync();
+      console.log(location, "location");
+
+      //reverse geocoding to get address
+      let address = await Location.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+
+      setUserLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        address: `${address[0].name} , ${address[0].region}`,
+      });
+    };
+    requestLocationPermission();
+  }, []);
+
   const Rides = [
     {
       ride_id: "1",
