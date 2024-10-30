@@ -36,6 +36,10 @@ export default function RootLayout() {
           name="index"
           options={{ headerTitle: "Home", headerShown: false }}
         />
+        <Stack.Screen
+          name="find-ride"
+          options={{ headerTitle: "Home", headerShown: false }}
+        />
         <Stack.Screen name="(auth)/sign-up" options={{ headerShown: false }} />
         <Stack.Screen
           name="(auth)/signin"
