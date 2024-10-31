@@ -14,7 +14,11 @@ const RideCard = ({
   ride: any;
 }) => {
   return (
-    <TouchableOpacity onPress={() => router.push("/find-ride")}>
+    <TouchableOpacity
+      onPress={() =>
+        router.canGoBack() ? router.back() : router.replace("/find-ride")
+      }
+    >
       <View className="bg-white p-4 rounded-2xl mt-3">
         <View className="flex flex-row space-x-5 items-center">
           <View className="w-20 h-20 rounded-lg flex justify-center items-center">

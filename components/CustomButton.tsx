@@ -11,7 +11,6 @@ const CustomButton = ({
   textVariant,
   onPress,
 }: ButtonProps) => {
-  console.log(classNames, "className");
   let getBgVariant = () => {
     switch (bgVariant) {
       case "primary":

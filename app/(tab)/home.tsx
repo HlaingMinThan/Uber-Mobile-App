@@ -164,7 +164,12 @@ const Home = () => {
                   <Image source={icons.out} className="w-6 h-6" />
                 </View>
               </View>
-              <GoogleSearchInput icon={icons.search} />
+              <View className="mt-5 p-2">
+                <GoogleSearchInput
+                  icon={icons.search}
+                  containerStyle="bg-white"
+                />
+              </View>
             </View>
             <>
               <Text className="text-black font-JakartaSemiBold text-xl my-4">

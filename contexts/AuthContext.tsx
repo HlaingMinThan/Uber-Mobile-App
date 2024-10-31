@@ -21,20 +21,20 @@ const AuthContextProvider = ({ children }: any) => {
   let [user, setUser] = useState(null);
 
   let getUser = async (token: string) => {
-    try {
-      let config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      let res = await axios.get("/api/user", config);
-      setUser(res.data);
-      setItem("token", token);
-    } catch (e: any) {
-      setItem("token", "");
-      setUser(null);
-      throw new Error(e);
-    }
+    // try {
+    //   let config = {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   };
+    //   let res = await axios.get("/api/user", config);
+    //   setUser(res.data);
+    //   setItem("token", token);
+    // } catch (e: any) {
+    //   setItem("token", "");
+    //   setUser(null);
+    //   throw new Error(e);
+    // }
   };
 
   const login = async (email: string, password: string) => {
@@ -54,9 +54,13 @@ const AuthContextProvider = ({ children }: any) => {
   };
 
   useEffect(() => {
+    setItem("token", "token");
+
     const token = getItem("token");
     if (token) {
+      console.log(token);
       getUser(token).then(() => {
+        console.log("hit");
         router.replace("/(tab)/home");
       });
     }

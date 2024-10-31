@@ -4,6 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import { AuthContextProvider } from "@/contexts/AuthContext";
+import { StatusBar } from "react-native";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -38,7 +39,15 @@ export default function RootLayout() {
         />
         <Stack.Screen
           name="find-ride"
-          options={{ headerTitle: "Home", headerShown: false }}
+          options={{ headerTitle: "Find Ride", headerShown: false }}
+        />
+        <Stack.Screen
+          name="confirm-ride"
+          options={{ headerTitle: "Confirm Ride", headerShown: false }}
+        />
+        <Stack.Screen
+          name="book-ride"
+          options={{ headerTitle: "Book Ride", headerShown: false }}
         />
         <Stack.Screen name="(auth)/sign-up" options={{ headerShown: false }} />
         <Stack.Screen
@@ -48,6 +57,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tab)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
+      <StatusBar backgroundColor="white" barStyle="dark-content"></StatusBar>
     </AuthContextProvider>
   );
 }
